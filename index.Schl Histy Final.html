@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viswashanti School History Timeline</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #FFD700; /* Yellow as primary color */
+            --secondary-color: #FFC107; /* Lighter yellow shade */
+            --accent-color: #FFCA28; /* Another yellow tone */
+            --light-bg: #FFF9C4; /* Light yellow background */
+            --dark-text: #212121; /* Darker text for contrast */
+            --light-text: #ffffff;
+            --gray-text: #5D4037; /* Brownish-gray for contrast */
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gradient-start: #FFF59D;
+            --gradient-end: #FFECB3;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(140deg, var(--gradient-start), var(--gradient-end));
+            color: var(--dark-text);
+            line-height: 1.0;
+            min-height: 100vh;
+            padding-bottom: 80px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--secondary-color) #e0e0e0;
+        }
+
+        /* Custom Scrollbar for Webkit */
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 5px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 5px;
+        }
+
+        body::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+
+        /* Fixed Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--gray-text);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Timeline Container */
+        .timeline {
+            max-width: 1200px;
+            margin: 120px auto 0;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+            z-index: -1;
+        }
+
+        /* Timeline Items */
+        .timeline-item {
+            margin-bottom: 4rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .timeline-item.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-content {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Improved alignment */
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            flex-direction: row-reverse;
+        }
+
+        .year-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary-color);
+            color: var(--dark-text);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            top: -10px;
+            z-index: 5;
+        }
+
+        /* Text Content */
+        .text-content {
+            flex: 1;
+            max-width: 45%;
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .timeline-item:nth-child(even) .text-content {
+            border-color: var(--secondary-color);
+        }
+
+        .timeline-item:nth-child(3n) .text-content {
+            border-color: var(--accent-color);
+        }
+
+        .text-content:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .text-content h3 i {
+            margin-right: 10px;
+            color: var(--accent-color);
+            font-size: 1.3rem;
+        }
+
+        .text-content p {
+            color: var(--gray-text);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .learn-more-btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: var(--primary-color);
+            color: var(--dark-text);
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .learn-more-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Gallery Styles */
+        .gallery-container {
+            flex: 1;
+            max-width: 45%;
+            position: relative;
+            height: 350px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--primary-color);
+        }
+
+        .gallery {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            background-color: var(--light-bg);
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Changed to contain for better visibility of faces */
+            object-position: center;
+            background: var(--light-bg);
+            padding: 10px;
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            padding: 1rem;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+
+        /* Navigation Controls */
+        .gallery-nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-container:hover .gallery-nav {
+            opacity: 1;
+        }
+
+        .nav-btn {
+            background: var(--primary-color);
+            color: var(--dark-text);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .dots-container {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            z-index: 3;
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--light-bg);
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            border-radius: 16px;
+            position: relative;
+            overflow-y: auto;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            scrollbar-width: thin;
+            scrollbar-color: var(--secondary-color) #e0e0e0;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+
+        .close-btn {
+            position: sticky;
+            top: 10px;
+            right: 10px;
+            float: right;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--secondary-color);
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            position: sticky;
+            top: 0;
+            background: var(--light-bg);
+            z-index: 5;
+            padding: 1rem 0;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--dark-text);
+            display: flex;
+            align-items: center;
+        }
+
+        .modal-header h3 i {
+            margin-right: 12px;
+            color: var(--accent-color);
+        }
+
+        .modal-body p {
+            font-size: 1rem;
+            color: var(--gray-text);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .modal-image {
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .timeline {
+                margin-top: 140px;
+            }
+
+            .timeline::before {
+                left: 25px;
+            }
+
+            .year-marker {
+                left: 25px;
+                transform: none;
+            }
+
+            .timeline-content {
+                flex-direction: column !important;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .text-content,
+            .gallery-container {
+                max-width: calc(100% - 50px);
+                margin-left: 50px;
+            }
+
+            .gallery-container {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .text-content {
+                padding: 1.5rem;
+            }
+
+            .text-content h3 {
+                font-size: 1.4rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .modal-header h3 {
+                font-size: 1.6rem;
+            }
+
+            .modal-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .modal-image {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline {
+                margin-top: 120px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 0.85rem;
+            }
+
+            .timeline::before {
+                left: 15px;
+            }
+
+            .year-marker {
+                left: 15px;
+                font-size: 0.8rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .text-content,
+            .gallery-container {
+                max-width: calc(100% - 30px);
+                margin-left: 30px;
+            }
+
+            .gallery-container {
+                height: 250px;
+            }
+
+            .text-content {
+                padding: 1rem;
+            }
+
+            .text-content h3 {
+                font-size: 1.2rem;
+            }
+
+            .text-content p {
+                font-size: 0.9rem;
+            }
+
+            .learn-more-btn {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+                margin: 3% auto;
+            }
+
+            .modal-header h3 {
+                font-size: 1.4rem;
+            }
+
+            .modal-body p {
+                font-size: 0.9rem;
+            }
+
+            .modal-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .modal-image {
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Viswashanti School History</h1>
+        <p class="subtitle">A journey of educational excellence since 1993</p>
+    </header>
+
+    <div class="timeline">
+        <!-- Founding: 1993 -->
+        <div class="timeline-item" id="founding">
+            <div class="year-marker">1993</div>
+            <div class="timeline-content">
+                <div class="text-content">
+                    <h3><i class="fas fa-school"></i> Founding</h3>
+                    <p>Viswasanthi English Medium High School was established in 1993 by M.P. Venkata Rao with the
+                        support of Bhattiprolu residents and like-minded friends. Their vision was to provide quality
+                        education and foster a love for learning in the rural community.</p>
+                    <a href="#" class="learn-more-btn" onclick="openModal('founding')">Learn More</a>
+                </div>
+                <div class="gallery-container">
+                    <div class="gallery" id="gallery-founding">
+                        <div class="slide active">
+                            <img src="Founding (1).jpeg" alt="Founding Ceremony">
+                            <div class="caption">Founding Ceremony 1993</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Founding (1).jpg" alt="Founding Ceremony">
+                            <div class="caption">Founding Ceremony 1993</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Founding (2).jpeg" alt="Founding Ceremony">
+                            <div class="caption">Founding Ceremony 1993</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Founding (4).jpg" alt="Founding Ceremony">
+                            <div class="caption">Founding Ceremony 1993</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Founding (2).jpg" alt="Founding Ceremony">
+                            <div class="caption">Founding Ceremony 1993</div>
+                        </div>
+                    </div>
+                    <div class="gallery-nav">
+                        <button class="nav-btn prev-btn" onclick="changeSlide(-1, 'gallery-founding')">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="nav-btn next-btn" onclick="changeSlide(1, 'gallery-founding')">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="dots-container" id="dots-founding"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Society Registration: 1997 -->
+        <div class="timeline-item" id="society">
+            <div class="year-marker">1997</div>
+            <div class="timeline-content">
+                <div class="text-content">
+                    <h3><i class="fas fa-handshake"></i> Society Registration</h3>
+                    <p>The Viswashanti Educational Society was registered in 1997, formalizing the institution's
+                        commitment to educational excellence and community development in Bhattiprolu.</p>
+                    <a href="#" class="learn-more-btn" onclick="openModal('society')">Learn More</a>
+                </div>
+                <div class="gallery-container">
+                    <div class="gallery" id="gallery-society">
+                        <div class="slide active">
+                            <img src="Govt. Recognition 1.jpg" alt="Society Registration">
+                            <div class="caption">Society Registration 1997</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Govt. Recognition 2.jpg" alt="Society Registration">
+                            <div class="caption">Society Registration 1997</div>
+                        </div>
+                    </div>
+                    <div class="gallery-nav">
+                        <button class="nav-btn prev-btn" onclick="changeSlide(-1, 'gallery-society')">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="nav-btn next-btn" onclick="changeSlide(1, 'gallery-society')">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="dots-container" id="dots-society"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Elementary Recognition: 2002 -->
+        <div class="timeline-item" id="elementary">
+            <div class="year-marker">2002</div>
+            <div class="timeline-content">
+                <div class="text-content">
+                    <h3><i class="fas fa-award"></i> Elementary School Recognition</h3>
+                    <p>Viswashanti English Elementary School received government recognition in 2002 for classes 1st to
+                        7th, marking a significant step in expanding quality education.</p>
+                    <a href="#" class="learn-more-btn" onclick="openModal('elementary')">Learn More</a>
+                </div>
+                <div class="gallery-container">
+                    <div class="gallery" id="gallery-elementary">
+                        <div class="slide active">
+                            <img src="Elementary Schl 1 (1).jpeg" alt="Elementary Recognition">
+                            <div class="caption">Elementary Recognition 2002</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Elementary Schl 1 (2).jpeg" alt="Elementary Recognition">
+                            <div class="caption">Elementary Recognition 2002</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Elementary Schl 1 (3).jpeg" alt="Elementary Recognition">
+                            <div class="caption">Elementary Recognition 2002</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Elementary Schl 1 (4).jpeg" alt="Elementary Recognition">
+                            <div class="caption">Elementary Recognition 2002</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Elementary Schl 1 (5).jpeg" alt="Elementary Recognition">
+                            <div class="caption">Elementary Recognition 2002</div>
+                        </div>
+                    </div>
+                    <div class="gallery-nav">
+                        <button class="nav-btn prev-btn" onclick="changeSlide(-1, 'gallery-elementary')">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="nav-btn next-btn" onclick="changeSlide(1, 'gallery-elementary')">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="dots-container" id="dots-elementary"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- High School Recognition: 2003 -->
+        <div class="timeline-item" id="highschool">
+            <div class="year-marker">2003</div>
+            <div class="timeline-content">
+                <div class="text-content">
+                    <h3><i class="fas fa-award"></i> High School Recognition</h3>
+                    <p>Viswashanti English High School was recognized by the government in 2003 for classes 8th to 10th,
+                        enabling further curriculum enhancements.</p>
+                    <a href="#" class="learn-more-btn" onclick="openModal('highschool')">Learn More</a>
+                </div>
+                <div class="gallery-container">
+                    <div class="gallery" id="gallery-highschool">
+                        <div class="slide active">
+                            <img src="Own Campus 2 (3).jpeg" alt="High School Recognition">
+                            <div class="caption">High School Recognition 2003</div>
+                        </div>
+                    </div>
+                    <div class="gallery-nav">
+                        <button class="nav-btn prev-btn" onclick="changeSlide(-1, 'gallery-highschool')">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="nav-btn next-btn" onclick="changeSlide(1, 'gallery-highschool')">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="dots-container" id="dots-highschool"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- School Bifurcation: 2003-04 -->
+        <div class="timeline-item" id="bifurcation">
+            <div class="year-marker">2003-04</div>
+            <div class="timeline-content">
+                <div class="text-content">
+                    <h3><i class="fas fa-sitemap"></i> School Bifurcation</h3>
+                    <p>From 2003-04, the school was bifurcated into Viswashanti English Medium Primary School (1st to
+                        5th) and Viswashanti English Medium High School (6th to 10th) to streamline education delivery.
+                    </p>
+                    <a href="#" class="learn-more-btn" onclick="openModal('bifurcation')">Learn More</a>
+                </div>
+                <div class="gallery-container">
+                    <div class="gallery" id="gallery-bifurcation">
+                        <div class="slide active">
+                            <img src="school buff.png" alt="School Bifurcation">
+                            <div class="caption">School Bifurcation 2003-04</div>
+                        </div>
+                    </div>
+                    <div class="gallery-nav">
+                        <button class="nav-btn prev-btn" onclick="changeSlide(-1, 'gallery-bifurcation')">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="nav-btn next-btn" onclick="changeSlide(1, 'gallery-bifurcation')">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="dots-container" id="dots-bifurcation"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Society Re-Registration: 2011 -->
+        <div class="timeline-item" id="reregistration">
+            <div class="year-marker">2011</div>
+            <div class="timeline-content">
+                <div class="text-content">
+                    <h3><i class="fas fa-handshake"></i> Society Re-Registration</h3>
+                    <p>The society was re-registered as Sri Viswashanti Educational Society in 2011, reinforcing its
+                        mission to advance education and community welfare.</p>
+                    <a href="#" class="learn-more-btn" onclick="openModal('reregistration')">Learn More</a>
+                </div>
+                <div class="gallery-container">
+                    <div class="gallery" id="gallery-reregistration">
+                        <div class="slide active">
+                            <img src="School Society.png" alt="Society Re-Registration">
+                            <div class="caption">Society Re-Registration 2011</div>
+                        </div>
+                    </div>
+                    <div class="gallery-nav">
+                        <button class="nav-btn prev-btn" onclick="changeSlide(-1, 'gallery-reregistration')">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="nav-btn next-btn" onclick="changeSlide(1, 'gallery-reregistration')">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="dots-container" id="dots-reregistration"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Own Campus: 2015 -->
+        <div class="timeline-item" id="campus">
+            <div class="year-marker">2015</div>
+            <div class="timeline-content">
+                <div class="text-content">
+                    <h3><i class="fas fa-building"></i> Own Campus</h3>
+                    <p>In 2015, Viswashanti moved to its own campus with modern classrooms and facilities, symbolizing
+                        growth and a commitment to a better learning environment.</p>
+                    <a href="#" class="learn-more-btn" onclick="openModal('campus')">Learn More</a>
+                </div>
+                <div class="gallery-container">
+                    <div class="gallery" id="gallery-campus">
+                        <div class="slide active">
+                            <img src="Own Campus 2 (3).jpeg" alt="Own Campus">
+                            <div class="caption">New Campus 2015</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Own Campus 2 (2).jpeg" alt="Own Campus">
+                            <div class="caption">New Campus 2015</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Own Campus 4.jpeg" alt="Own Campus">
+                            <div class="caption">New Campus 2015</div>
+                        </div>
+                    </div>
+                    <div class="gallery-nav">
+                        <button class="nav-btn prev-btn" onclick="changeSlide(-1, 'gallery-campus')">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="nav-btn next-btn" onclick="changeSlide(1, 'gallery-campus')">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="dots-container" id="dots-campus"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Growth Expansion: 2020 -->
+        <div class="timeline-item" id="expansion">
+            <div class="year-marker">2020</div>
+            <div class="timeline-content">
+                <div class="text-content">
+                    <h3><i class="fas fa-chart-line"></i> Growth Expansion</h3>
+                    <p>By 2020, Viswashanti expanded significantly, adding new programs and infrastructure, reflecting
+                        its dedication to educational excellence.</p>
+                    <a href="#" class="learn-more-btn" onclick="openModal('expansion')">Learn More</a>
+                </div>
+                <div class="gallery-container">
+                    <div class="gallery" id="gallery-expansion">
+                        <div class="slide active">
+                            <img src="Growth Expansion (1).jpeg" alt="Growth Expansion">
+                            <div class="caption">Growth Expansion 2020</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Growth Expansion  (1).jpg" alt="Growth Expansion">
+                            <div class="caption">Growth Expansion 2020</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Growth Expansion  (2).jpg" alt="Growth Expansion">
+                            <div class="caption">Growth Expansion 2020</div>
+                        </div>
+                        <div class="slide">
+                            <img src="Growth Expansion  (3).jpg" alt="Growth Expansion">
+                            <div class="caption">Growth Expansion 2020</div>
+                        </div>
+                    </div>
+                    <div class="gallery-nav">
+                        <button class="nav-btn prev-btn" onclick="changeSlide(-1, 'gallery-expansion')">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="nav-btn next-btn" onclick="changeSlide(1, 'gallery-expansion')">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="dots-container" id="dots-expansion"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="timeline-modal">
+        <div class="modal-content">
+            <div class="close-btn" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="modal-header">
+                <h3 id="modal-title"></h3>
+            </div>
+            <div class="modal-body">
+                <p id="modal-description"></p>
+                <div class="modal-gallery" id="modal-gallery"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Slideshows
+        document.addEventListener('DOMContentLoaded', function () {
+            const galleries = document.querySelectorAll('.gallery');
+
+            galleries.forEach(gallery => {
+                const galleryId = gallery.id;
+                const slides = gallery.querySelectorAll('.slide');
+                const dotsContainer = document.getElementById('dots-' + galleryId.split('-')[1]);
+
+                slides.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+                    if (index === 0) dot.classList.add('active');
+                    dot.onclick = function () {
+                        currentSlideIndex[galleryId] = index;
+                        updateSlideShow(galleryId);
+                    };
+                    dotsContainer.appendChild(dot);
+                });
+
+                if (!window.currentSlideIndex) window.currentSlideIndex = {};
+                currentSlideIndex[galleryId] = 0;
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                observer.observe(item);
+            });
+        });
+
+        // Change Slide
+        function changeSlide(direction, galleryId) {
+            const gallery = document.getElementById(galleryId);
+            const slides = gallery.querySelectorAll('.slide');
+            currentSlideIndex[galleryId] = (currentSlideIndex[galleryId] + direction + slides.length) % slides.length;
+            updateSlideShow(galleryId);
+        }
+
+        // Update Slideshow
+        function updateSlideShow(galleryId) {
+            const gallery = document.getElementById(galleryId);
+            const slides = gallery.querySelectorAll('.slide');
+            const dots = document.getElementById('dots-' + galleryId.split('-')[1]).querySelectorAll('.dot');
+
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                dots[index].classList.remove('active');
+            });
+
+            slides[currentSlideIndex[galleryId]].classList.add('active');
+            dots[currentSlideIndex[galleryId]].classList.add('active');
+        }
+
+        // Auto-advance slideshows
+        setInterval(() => {
+            const galleries = document.querySelectorAll('.gallery');
+            galleries.forEach(gallery => {
+                if (!gallery.closest('.gallery-container').matches(':hover')) {
+                    changeSlide(1, gallery.id);
+                }
+            });
+        }, 4000);
+
+        // Modal Functions
+        function openModal(sectionId) {
+            const modal = document.getElementById('timeline-modal');
+            const section = document.getElementById(sectionId);
+            const title = section.querySelector('.text-content h3').innerHTML;
+            const description = section.querySelector('.text-content p').innerHTML;
+
+            document.getElementById('modal-title').innerHTML = title;
+            document.getElementById('modal-description').innerHTML = description;
+
+            const modalGallery = document.getElementById('modal-gallery');
+            modalGallery.innerHTML = '';
+
+            const images = section.querySelectorAll('.slide img');
+            images.forEach(img => {
+                const imgContainer = document.createElement('div');
+                imgContainer.classList.add('modal-image');
+                const newImg = document.createElement('img');
+                newImg.src = img.src;
+                newImg.alt = img.alt;
+                imgContainer.appendChild(newImg);
+                modalGallery.appendChild(imgContainer);
+            });
+
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('timeline-modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('timeline-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+
+</html>
